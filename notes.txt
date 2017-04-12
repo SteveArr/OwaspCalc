@@ -1,0 +1,127 @@
+Add to settings.json to fix screwey linting:
+"python.linting.pylintPath": "${workspaceRoot}/venv/bin/pylint",
+"python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
+
+From within virtual enviroment:
+pip install pylint_django
+
+ALTERNATIVELY:
+in command terminal, start venv.  (source ~/owaspSite/venv/bin/activate)
+From root of site:  code .
+
+https://github.com/DonJayamanne/pythonVSCode/wiki/Python-Path-and-Version
+--
+
+Install TinyMCE
+
+From venv
+pip install django-TinyMCE
+Add urls entry
+in tiny_mce.js and tiny_mce_popup.js - add document.domain = 'arring.net'; at the top
+Update settings.py
+    Add tinymce as app 
+    Setup media root 
+    Setup media url 
+    Setup tinymce default config 
+Set model to tinymce instead of text field
+Add form.media to template html of posting html
+Make media dir
+    Add js dir 
+    Copy tinymce media into the media/js dir
+On deploy, dont forget to make static.
+in tiny mce content.css set default font to 16px (myproject/static/tiny_mce/themes/advanced/skins/default/content.css)
+
+
+--
+
+Install Redactor
+
+pip install pillow
+https://github.com/douglasmiranda/django-wysiwyg-redactor
+
+cd ~
+cd myproject
+source myprojectenv/bin/activate
+pip install pillow
+pip install django-wysiwyg-redactor
+
+(open settings.py)
+    (add 'redactor' to apps)
+    REDACTOR_OPTIONS = {'lang': 'en', 'plugins': ['imagemanager']}
+    REDACTOR_UPLOAD = 'uploads/'
+    REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
+
+(open urls.py)
+    url(r'^redactor/', include('redactor.urls')),    
+
+(add jquery-2 --not 3-- reference to post.html)
+
+(in models.py add import, add RedactorField() to field to use)
+(mkdir plugins in static/redactor)
+(mkdir media/uploads in static)
+(edit site nginx conf - server for arring.net)
+    add max_client_body_size 10M;
+
+
+/etc/nginx/ssl/arring_net/dhparams.pem
+
+--
+
+Dump initial data:
+python manage.py dumpdata owaspcalc.RiskItemDetail
+
+
+--
+
+Making tar file and upload to server
+
+#!/bin/bash
+cd ~/
+mkdir deploy-blog
+cd mysite/mysite/blog
+cp *.py ~/deploy-blog/
+cp -r ./static/ ~/deploy-blog/static/
+cp -r ./templates/ ~/deploy-blog/templates/
+cd ~/
+mv deploy-blog blog
+tar -zcvf deploy-blog.tar.gz blog
+rm -r blog
+scp deploy-blog.tar.gz steve@arring.net:
+
+
+--
+
+Deploying from tar file
+
+mv deploy-blog.tar.gz myproject/myprojectenv/lib/python3.5/site-packages/
+cd myproject/myprojectenv/lib/python3.5/site-packages/
+tar -xvzf deploy-blog.tar.gz
+rm deploy-blog.tar.gz
+cd ~/myproject
+source myprojectenv/bin/activate
+python manage.py collectstatic -v0 --noinput
+deactivate
+
+--
+
+Install Dotnet on Linux Mint
+
+Download and install:  https://launchpad.net/ubuntu/wily/amd64/libicu52/52.1-8
+sudo apt install dotnet-dev-1.0.0-rc4-004771 
+
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+sudo apt-get install npm
+sudo npm install -g npm
+sudo npm install -g yo
+sudo npm install -g generator-aspnet
+
+mkdir mywebapp
+cd mywebapp
+yo aspnet
+cd mywebapp
+dotnet restore
+dotnet ef database update
+
+

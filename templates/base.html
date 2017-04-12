@@ -1,0 +1,23 @@
+{% load static %}
+<html>
+<title>OWASP RISK</title>    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static "owaspcalc/style.css" %}"/>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
+<body>
+<div class="w3-container" style="max-width:800px">
+<div class="w3-bar w3-black">
+  <a class="w3-bar-item w3-button" href="{% url 'owaspcalc:index' %}">Home</a>
+  <a class="w3-bar-item w3-button" href="{% url 'owaspcalc:create' %}">Create</a>
+  <div class="w3-right">
+      <input type="text" class="w3-bar-item w3-input w3-white " placeholder="Search risks...">
+      <a href="#" class="w3-bar-item w3-button w3-green ">Go</a>
+  </div>
+</div>
+
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

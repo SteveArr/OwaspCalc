@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+    {{ form.media }}
+</head>
+
+<div class="w3-containter" style="max-width:800px">
+    <div class="w3-container w3-teal">
+        <h2>Create new risk...</h2>
+    </div>
+
+    <form class="w3-container" action="{% url 'owaspcalc:create' %}" method="POST">
+        <br>
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+            <b>
+            <div class="">
+                <div class="w3-label w3-text-black">{{ form.title.label_tag }}</div>
+                {{ form.title|add_class:"w3-input w3-border w3-round-large" }}
+                {{ form.title.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-black">{{ form.details.label_tag }}</div>
+                {{ form.details|add_class:"w3-input w3-border w3-round-large" }}
+                {{ form.details.errors }}
+            </div>
+            
+            <h3>Threat agent factors</h3>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.skill_level.label_tag }}</div>
+                {{ form.skill_level|add_class:"w3-select w3-border w3-round-large dd-ta" }}
+                {{ form.skill_level.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.motivation.label_tag }}</div>
+                {{ form.motivation|add_class:"w3-select w3-border w3-round-large dd-ta" }}
+                {{ form.motivation.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.opportunity.label_tag }}</div>
+                {{ form.opportunity|add_class:"w3-select w3-border w3-round-large dd-ta" }}
+                {{ form.opportunity.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.size.label_tag }}</div>
+                {{ form.size|add_class:"w3-select w3-border w3-round-large dd-ta" }}
+                {{ form.size.errors }}
+            </div>
+
+            <h3>Vulnerability factors</h3>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.ease_of_discovery.label_tag }}</div>
+                {{ form.ease_of_discovery|add_class:"w3-select w3-border w3-round-large dd-vf" }}
+                {{ form.ease_of_discovery.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.ease_of_exploit.label_tag }}</div>
+                {{ form.ease_of_exploit|add_class:"w3-select w3-border w3-round-large dd-vf" }}
+                {{ form.ease_of_exploit.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.awareness.label_tag }}</div>
+                {{ form.awareness|add_class:"w3-select w3-border w3-round-large dd-vf" }}
+                {{ form.awareness.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.intrusion_detection.label_tag }}</div>
+                {{ form.intrusion_detection|add_class:"w3-select w3-border w3-round-large dd-vf" }}
+                {{ form.intrusion_detection.errors }}
+            </div>
+
+            <h3>Technical Impact</h3>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.loss_of_confidentiality.label_tag }}</div>
+                {{ form.loss_of_confidentiality|add_class:"w3-select w3-border w3-round-large dd-ti" }}
+                {{ form.loss_of_confidentiality.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.loss_of_integrity.label_tag }}</div>
+                {{ form.loss_of_integrity|add_class:"w3-select w3-border w3-round-large dd-ti" }}
+                {{ form.loss_of_integrity.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.loss_of_availability.label_tag }}</div>
+                {{ form.loss_of_availability|add_class:"w3-select w3-border w3-round-large dd-ti" }}
+                {{ form.loss_of_availability.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.loss_of_accountability.label_tag }}</div>
+                {{ form.loss_of_accountability|add_class:"w3-select w3-border w3-round-large dd-ti" }}
+                {{ form.loss_of_accountability.errors }}
+            </div>
+
+            <h3>Business Impact</h3>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.financial_damage.label_tag }}</div>
+                {{ form.financial_damage|add_class:"w3-select w3-border w3-round-large dd-bi" }}
+                {{ form.financial_damage.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.reputation_damage.label_tag }}</div>
+                {{ form.reputation_damage|add_class:"w3-select w3-border w3-round-large dd-bi" }}
+                {{ form.reputation_damage.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.non_compliance.label_tag }}</div>
+                {{ form.non_compliance|add_class:"w3-select w3-border w3-round-large dd-bi" }}
+                {{ form.non_compliance.errors }}
+            </div>
+            <div class="">
+                <div class="w3-label w3-text-teal">{{ form.privacy_violation.label_tag }}</div>
+                {{ form.privacy_violation|add_class:"w3-select w3-border w3-round-large dd-bi" }}
+                {{ form.privacy_violation.errors }}
+            </div>
+        </b>
+        <br>
+        <input class="w3-btn w3-round-large w3-xlarge w3-blue-grey" type="submit" value="Save"/>
+    </form>
+</div>
+<input type="text" name="ta_score" id="ta_score" />
+
+<script>
+    $(document).ready(function() {
+        var selects = $('.dd-ta');
+        selects.change(function(){
+            var value = 0;
+            selects.each(function(){ value += +this.value; });
+            $('#ta_score').val(value);
+        }).trigger('change');
+    });
+</script>
+
+{% endblock %}

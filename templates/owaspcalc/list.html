@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="w3-container" style="max-width:800px">
+    {% for ra in risks %}
+        <header class="w3-container w3-light-grey">
+        <h3><a href="{% url 'owaspcalc:detail' ra.slug %}">{{ ra.title }}</a></h3>
+        </header>
+        {{ ra.created_time_stamp }}<br>    
+        Notes: {{ ra.details }}<br>
+        <br>
+    {% endfor%}
+</div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <p><input type="submit" value="Yes, delete." /></p>
+    <p><a href="{% url 'owaspcalc:detail' object.slug %}">No, go back.</a></p>
+</form>

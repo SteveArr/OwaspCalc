@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+ <div class="w3-bar w3-blue">
+     <h2>
+  <a class="w3-bar-item w3-button" href="{% url 'owaspcalc:edit' ra.slug %}">Edit</a>
+  <a class="w3-bar-item w3-button" href="{% url 'owaspcalc:delete' ra.pk %}">Delete</a>
+  </h2>
+</div>
+
+ <p>
+            Title: {{ ra.title }}<br>
+            Time stamp: {{ ra.created_time_stamp }}<br>    
+            Notes: {{ ra.details }}<br>
+            Slug: {{ ra.slug }}<br>
+            <br>
+            Skill Level: {{ ra.skill_level }}<br>
+            Motivation: {{ ra.motivation }}<br>
+            Opportunity: {{ ra.opportunity }}<br>
+            Size: {{ ra.size }}<br>
+            <br>
+            Ease of discovery: {{ ra.ease_of_discovery }}<br>
+            Ease of exploit: {{ ra.ease_of_exploit }}<br>
+            Awareness: {{ ra.awareness }}<br>
+            Intrusion detection: {{ ra.intrusion_detection }}<br>
+            <br>
+            Loss of confidentiality: {{ ra.loss_of_confidentiality }}<br>
+            Loss of integrity: {{ ra.loss_of_integrity }}<br>
+            Loss of availability: {{ ra.loss_of_availability }}<br>
+            Loss of accountability: {{ ra.loss_of_accountability }}<br>
+            <br>
+            Financial damage: {{ ra.financial_damage }}<br>
+            Repuation damage: {{ ra.reputation_damage }}<br>
+            Non compliance: {{ ra.non_compliance }}<br>
+            Privacy violation: {{ ra.privacy_violation }}<br>
+            <br>
+</p>
+{% endblock %}
