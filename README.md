@@ -1,7 +1,6 @@
-====
 OwaspCalc
-====
 
+-----------
 Calculate an overall risk score for a web application vulnerability using the OWASP Risk Rating methodolgy.
 
 Quick start
