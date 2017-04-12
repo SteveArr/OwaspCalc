@@ -1,19 +1,23 @@
 OwaspCalc
 -----------
 
-Calculate an overall risk score for a web application vulnerability using the OWASP Risk Rating methodolgy.
+A Django application to calculate an overall risk score for a web application vulnerability using the OWASP Risk Rating methodolgy.
 
 Quick start
 -----------
+1.  Install widget_tweaks in your venv.   
+    pip install django-widget-tweaks
+    Then add ‘widget_tweaks’ to INSTALLED_APPS.
 
-1. Add "owaspcalc" to your INSTALLED_APPS setting like this::
+1. Add "owaspcalc" to your INSTALLED_APPS setting like this
 
     INSTALLED_APPS = [
-        ...
+        
         'owaspcalc.apps.OwaspcalcConfig',
+        'widget_tweaks',
     ]
 
-2. Include the polls URLconf in your project urls.py like this::
+2. Include the polls URLconf in your project urls.py like this
 
     url(r'^owaspcalc/', include('owaspcalc.urls')),
 
