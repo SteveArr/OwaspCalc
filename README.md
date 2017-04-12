@@ -5,8 +5,10 @@ A Django application to calculate an overall risk score for a web application vu
 
 Quick start
 -----------
-1.  Install widget_tweaks in your venv.   
+1.  Install widget_tweaks in your venv.
+
     `pip install django-widget-tweaks`
+    
     Then add ‘widget_tweaks’ to INSTALLED_APPS.
 
 2. Add "owaspcalc" to your INSTALLED_APPS setting like this
